@@ -52,8 +52,7 @@ func TestDeleteHandler(t *testing.T) {
 				urlDeleterMock.On("DeleteURLByAlias", tc.alias).Return(tc.mockError).Once()
 			}
 
-			handler := delete.New(slogdiscard.NewDiscardLogger(), urlDeleterMock)
-
+			var handler = delete.New(slogdiscard.NewDiscardLogger(), urlDeleterMock)
 			input := fmt.Sprintf(`{"alias": "%s"}`, tc.alias)
 
 			req, err := http.NewRequest(http.MethodDelete, "/delete", bytes.NewReader([]byte(input)))
